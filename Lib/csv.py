@@ -5,11 +5,10 @@ csv.py - read/write/investigate CSV files
 
 import re
 import types
+from enum import IntEnum as _IntEnum
 from _csv import Error, __version__, writer, reader, register_dialect, \
                  unregister_dialect, get_dialect, list_dialects, \
                  field_size_limit, \
-                 QUOTE_MINIMAL, QUOTE_ALL, QUOTE_NONNUMERIC, QUOTE_NONE, \
-                 QUOTE_STRINGS, QUOTE_NOTNULL, \
                  __doc__
 from _csv import Dialect as _Dialect
 
@@ -22,6 +21,9 @@ __all__ = ["QUOTE_MINIMAL", "QUOTE_ALL", "QUOTE_NONNUMERIC", "QUOTE_NONE",
            "register_dialect", "get_dialect", "list_dialects", "Sniffer",
            "unregister_dialect", "__version__", "DictReader", "DictWriter",
            "unix_dialect"]
+
+_IntEnum._convert_('QuoteStyle', __name__,
+                   lambda name: name.startswith('QUOTE_'), source=_csv)
 
 class Dialect:
     """Describe a CSV dialect.
